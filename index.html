@@ -38,6 +38,22 @@
             messages.appendChild(item)
             window.scrollTo(0, document.body.scrollHeight)
         })
+
+        socket.on('new user', (id) => {
+            
+            const userMessage = document.createElement("div")
+            userMessage.textContent = `${verifyUser()} joined the chat with id: ${id}`
+            messages.appendChild(userMessage)
+            window.scrollTo(0, document.body.scrollHeight)
+        })
+
+        const verifyUser = () => {
+            const username = window.prompt("Please enter your username: ")
+            if (username === "" || username === null) {
+                verifyUser()
+            }
+            return username
+        }
     </script>
 </body>
 </html>

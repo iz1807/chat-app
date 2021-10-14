@@ -6,6 +6,8 @@ const path = require('path')
 const port = process.env.PORT || 3000
 const design_file = 'index.html'
 
+const activeUsers = []
+
 
 app.get('/', (req, res) => {
     app.use(express.static(__dirname + '/public'))
@@ -13,6 +15,10 @@ app.get('/', (req, res) => {
 })
 
 io.on('connection', socket => {
+    const id = socket.id
+    activeUsers.push(id)
+    io.emit('new user', id)
+
     socket.on('user message', message => {
         io.emit("server message", message)
     })
